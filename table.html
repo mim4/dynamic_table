@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>d3.js data driven page</title>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+    </head>
+
+    <body>
+        
+        <script>
+            function setValue() {
+                selectValue=document.getElementById("Options").value;
+            }
+            
+            d3.select('Options').on('change',change);
+            
+            function change() {
+                var data;
+                if (selectValue == 1){
+                    data = data1.csv;
+                    } else if (selectValue == 2){
+                      data = data2.csv;
+                    }
+                d3.csv(data,
+                (d,i,c) => {
+                if (i>10) return d
+                d3.select("table")
+                .append("tr")
+                .selectAll("td")
+                .data(c).enter()
+                .append("td").text(e => d[e])
+            })
+        }
+        </script>
+
+        <select id = "Options" onchange="setValue()">
+            <option value="1" selected="selected">data1</option>
+            <option value="2" >data2</option> 
+        </select>
+        <table></table>
+
+       
+    </body>
+</html>
